@@ -72,6 +72,30 @@ console.log("=== SYSTEM BOOT COMPLETE ===");
  */
 document.addEventListener('DOMContentLoaded', () => {
     try {
+        // Theme mode toggle with persistence
+        const themeToggle = document.getElementById('theme-toggle');
+        const savedTheme = localStorage.getItem('theme');
+
+        if (savedTheme === 'light') {
+            document.body.classList.add('light-mode');
+        }
+
+        const updateThemeButtonText = () => {
+            if (!themeToggle) return;
+            const isLightMode = document.body.classList.contains('light-mode');
+            themeToggle.innerText = isLightMode ? 'Switch to Dark' : 'Switch to Light';
+        };
+
+        if (themeToggle) {
+            themeToggle.addEventListener('click', () => {
+                document.body.classList.toggle('light-mode');
+                const isLightMode = document.body.classList.contains('light-mode');
+                localStorage.setItem('theme', isLightMode ? 'light' : 'dark');
+                updateThemeButtonText();
+            });
+        }
+        updateThemeButtonText();
+
         // Inject Name and Title into the hero section
         if (typeof studentName !== 'undefined') {
             document.getElementById('hero-name').innerText = studentName;
