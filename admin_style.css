@@ -1,0 +1,573 @@
+/* Admin Dashboard Styles */
+@import url('https://fonts.googleapis.com/css2?family=Space+Grotesk:wght@300;400;700&display=swap');
+
+:root {
+    --bg-color: #030014;
+    --glass-bg: rgba(255, 255, 255, 0.03);
+    --glass-border: rgba(255, 255, 255, 0.05);
+    --accent: #00f0ff;
+    --accent-glow: rgba(0, 240, 255, 0.5);
+    --text-main: #e2e8f0;
+    --text-label: #ffffff;
+    --text-body-panel: #c0c0c0;
+    --input-bg: rgba(0, 0, 0, 0.3);
+    --input-text: #ffffff;
+    --success: #4ade80;
+    --warning: #facc15;
+    --danger: #ff6b6b;
+}
+
+body.light-mode {
+    --bg-color: #f4f8ff;
+    --glass-bg: rgba(255, 255, 255, 0.95);
+    --glass-border: rgba(15, 23, 42, 0.12);
+    --accent: #2563eb;
+    --text-main: #1f2937;
+    --text-label: #0f172a;
+    --text-body-panel: #334155;
+    --input-bg: #ffffff;
+    --input-text: #0f172a;
+}
+
+* {
+    box-sizing: border-box;
+    margin: 0;
+    padding: 0;
+}
+
+body {
+    font-family: 'Space Grotesk', sans-serif;
+    background-color: var(--bg-color);
+    color: var(--text-main);
+    overflow-x: hidden;
+}
+
+/* Admin Container Layout */
+.admin-container {
+    display: grid;
+    grid-template-columns: 280px 1fr;
+    min-height: 100vh;
+}
+
+/* Sidebar */
+.admin-sidebar {
+    background: var(--glass-bg);
+    border-right: 1px solid var(--glass-border);
+    backdrop-filter: blur(12px);
+    padding: 2rem 1.5rem;
+    display: flex;
+    flex-direction: column;
+    gap: 2rem;
+    position: sticky;
+    top: 0;
+    height: 100vh;
+    overflow-y: auto;
+}
+
+.sidebar-header h2 {
+    font-size: 1.3rem;
+    color: var(--text-label);
+    margin-bottom: 0.5rem;
+}
+
+.user-info {
+    font-size: 0.85rem;
+    color: var(--text-body-panel);
+}
+
+.user-info strong {
+    color: var(--accent);
+}
+
+/* Navigation */
+.admin-nav {
+    display: flex;
+    flex-direction: column;
+    gap: 0.5rem;
+    flex: 1;
+}
+
+.nav-link {
+    display: flex;
+    align-items: center;
+    gap: 0.75rem;
+    padding: 0.9rem 1rem;
+    border: 1px solid transparent;
+    border-radius: 8px;
+    color: var(--text-main);
+    text-decoration: none;
+    font-size: 0.95rem;
+    transition: all 0.3s;
+    cursor: pointer;
+}
+
+.nav-link:hover {
+    color: var(--accent);
+    border-color: var(--accent);
+    background: rgba(0, 240, 255, 0.05);
+}
+
+.nav-link.active {
+    background: rgba(0, 240, 255, 0.1);
+    color: var(--accent);
+    border-color: var(--accent);
+}
+
+.nav-link .icon {
+    font-size: 1.2rem;
+}
+
+/* Sidebar Footer */
+.sidebar-footer {
+    display: flex;
+    flex-direction: column;
+    gap: 0.75rem;
+    border-top: 1px solid var(--glass-border);
+    padding-top: 1.5rem;
+}
+
+.logout-btn,
+.portfolio-btn {
+    padding: 0.8rem;
+    border: 1px solid var(--accent);
+    border-radius: 8px;
+    text-align: center;
+    text-decoration: none;
+    font-size: 0.9rem;
+    transition: all 0.3s;
+    cursor: pointer;
+    font-family: inherit;
+}
+
+.logout-btn {
+    background: transparent;
+    color: var(--danger);
+    border-color: var(--danger);
+}
+
+.logout-btn:hover {
+    background: var(--danger);
+    color: #fff;
+}
+
+.portfolio-btn {
+    background: transparent;
+    color: var(--accent);
+}
+
+.portfolio-btn:hover {
+    background: var(--accent);
+    color: #000;
+}
+
+/* Main Content */
+.admin-content {
+    padding: 2rem;
+    overflow-y: auto;
+    max-height: 100vh;
+}
+
+/* Tab Content */
+.tab-content {
+    display: none;
+}
+
+.tab-content.active {
+    display: block;
+    animation: fadeIn 0.3s ease-in;
+}
+
+@keyframes fadeIn {
+    from {
+        opacity: 0;
+        transform: translateY(10px);
+    }
+    to {
+        opacity: 1;
+        transform: translateY(0);
+    }
+}
+
+/* Content Header */
+.content-header {
+    display: flex;
+    justify-content: space-between;
+    align-items: center;
+    margin-bottom: 2rem;
+    flex-wrap: wrap;
+    gap: 1rem;
+}
+
+.content-header h1 {
+    font-size: 2rem;
+    color: var(--text-label);
+    margin: 0;
+}
+
+.subtitle {
+    color: var(--text-body-panel);
+    font-size: 0.95rem;
+    margin-top: 0.5rem;
+}
+
+/* Buttons */
+.btn-primary,
+.btn-secondary,
+.btn-edit,
+.btn-delete {
+    padding: 0.8rem 1.5rem;
+    border: 1px solid;
+    border-radius: 8px;
+    font-size: 0.9rem;
+    font-family: inherit;
+    cursor: pointer;
+    transition: all 0.3s;
+    text-decoration: none;
+    display: inline-block;
+}
+
+.btn-primary {
+    background: transparent;
+    border-color: var(--accent);
+    color: var(--accent);
+    text-transform: uppercase;
+    letter-spacing: 1px;
+}
+
+.btn-primary:hover {
+    background: var(--accent);
+    color: #000;
+    box-shadow: 0 0 15px rgba(0, 240, 255, 0.5);
+}
+
+.btn-secondary {
+    background: transparent;
+    border-color: var(--text-body-panel);
+    color: var(--text-body-panel);
+}
+
+.btn-secondary:hover {
+    border-color: var(--text-main);
+    color: var(--text-main);
+}
+
+.btn-edit {
+    background: transparent;
+    border-color: var(--warning);
+    color: var(--warning);
+    padding: 0.5rem 1rem;
+    font-size: 0.85rem;
+}
+
+.btn-edit:hover {
+    background: var(--warning);
+    color: #000;
+}
+
+.btn-delete {
+    background: transparent;
+    border-color: var(--danger);
+    color: var(--danger);
+    padding: 0.5rem 1rem;
+    font-size: 0.85rem;
+}
+
+.btn-delete:hover {
+    background: var(--danger);
+    color: #fff;
+}
+
+/* Stats Grid */
+.stats-grid {
+    display: grid;
+    grid-template-columns: repeat(auto-fit, minmax(200px, 1fr));
+    gap: 1.5rem;
+    margin-bottom: 2rem;
+}
+
+.stat-card {
+    background: var(--glass-bg);
+    border: 1px solid var(--glass-border);
+    border-radius: 12px;
+    padding: 1.5rem;
+    display: flex;
+    align-items: center;
+    gap: 1rem;
+    transition: all 0.3s;
+}
+
+.stat-card:hover {
+    border-color: var(--accent);
+    background: rgba(0, 240, 255, 0.05);
+}
+
+.stat-icon {
+    font-size: 2.5rem;
+}
+
+.stat-info h3 {
+    font-size: 1.5rem;
+    color: var(--accent);
+    margin: 0;
+}
+
+.stat-info p {
+    color: var(--text-body-panel);
+    margin: 0;
+    font-size: 0.9rem;
+}
+
+/* Forms */
+.form-panel {
+    background: var(--glass-bg);
+    border: 1px solid var(--glass-border);
+    border-radius: 12px;
+    padding: 2rem;
+    margin-bottom: 2rem;
+}
+
+.form-panel h3 {
+    color: var(--text-label);
+    margin-top: 0;
+    margin-bottom: 1.5rem;
+}
+
+.form-group {
+    margin-bottom: 1.5rem;
+}
+
+.form-row {
+    display: grid;
+    grid-template-columns: repeat(auto-fit, minmax(250px, 1fr));
+    gap: 1.5rem;
+}
+
+label {
+    display: block;
+    color: var(--text-label);
+    font-size: 0.9rem;
+    margin-bottom: 0.5rem;
+    font-weight: 600;
+}
+
+input,
+select,
+textarea {
+    width: 100%;
+    padding: 0.9rem;
+    background: var(--input-bg);
+    border: 1px solid var(--glass-border);
+    color: var(--input-text);
+    border-radius: 8px;
+    font-family: inherit;
+    font-size: 0.95rem;
+    transition: border-color 0.3s;
+}
+
+input:focus,
+select:focus,
+textarea:focus {
+    outline: none;
+    border-color: var(--accent);
+    box-shadow: 0 0 0 3px rgba(0, 240, 255, 0.1);
+}
+
+textarea {
+    resize: vertical;
+}
+
+.form-actions {
+    display: flex;
+    gap: 1rem;
+    margin-top: 2rem;
+}
+
+/* Lists */
+.projects-list,
+.contacts-list,
+.messages-list {
+    display: flex;
+    flex-direction: column;
+    gap: 1.5rem;
+}
+
+.project-item,
+.contact-item,
+.message-item {
+    background: var(--glass-bg);
+    border: 1px solid var(--glass-border);
+    border-radius: 12px;
+    padding: 1.5rem;
+    transition: all 0.3s;
+}
+
+.project-item:hover,
+.contact-item:hover,
+.message-item:hover {
+    border-color: var(--accent);
+    background: rgba(0, 240, 255, 0.02);
+}
+
+.project-header,
+.contact-header,
+.message-header {
+    display: flex;
+    justify-content: space-between;
+    align-items: center;
+    margin-bottom: 1rem;
+    flex-wrap: wrap;
+    gap: 1rem;
+}
+
+.project-header h3,
+.contact-header h3,
+.message-header strong {
+    color: var(--text-label);
+    margin: 0;
+    font-size: 1.1rem;
+}
+
+.project-status,
+.message-date,
+.contact-date {
+    font-size: 0.85rem;
+    padding: 0.35rem 0.75rem;
+    border-radius: 999px;
+    font-weight: 600;
+}
+
+.project-status {
+    background: rgba(0, 240, 255, 0.1);
+    color: var(--accent);
+}
+
+.status-live {
+    color: var(--success);
+}
+
+.status-wip {
+    color: var(--warning);
+}
+
+.status-planned {
+    color: var(--text-body-panel);
+}
+
+.message-date,
+.contact-date {
+    background: rgba(0, 240, 255, 0.05);
+    color: var(--text-body-panel);
+}
+
+.project-description,
+.contact-email,
+.contact-reason,
+.contact-message {
+    color: var(--text-body-panel);
+    margin: 0.75rem 0;
+    line-height: 1.6;
+}
+
+.project-language {
+    color: var(--accent);
+    font-size: 0.9rem;
+    margin: 1rem 0;
+}
+
+.contact-message {
+    background: rgba(0, 0, 0, 0.2);
+    padding: 1rem;
+    border-radius: 8px;
+    margin: 1rem 0;
+}
+
+.project-actions,
+.contact-actions {
+    display: flex;
+    gap: 0.75rem;
+    margin-top: 1rem;
+}
+
+/* Settings */
+.settings-panel {
+    max-width: 600px;
+}
+
+.setting-item {
+    background: var(--glass-bg);
+    border: 1px solid var(--glass-border);
+    border-radius: 12px;
+    padding: 1.5rem;
+    margin-bottom: 1.5rem;
+}
+
+.setting-item.danger {
+    border-color: var(--danger);
+}
+
+.setting-item h3 {
+    color: var(--text-label);
+    margin-top: 0;
+}
+
+.setting-item p {
+    color: var(--text-body-panel);
+    margin: 0.75rem 0;
+}
+
+.setting-item code {
+    background: rgba(0, 0, 0, 0.3);
+    padding: 0.25rem 0.5rem;
+    border-radius: 4px;
+    font-family: 'Courier New', monospace;
+    font-size: 0.85rem;
+}
+
+hr {
+    border: none;
+    border-top: 1px solid var(--glass-border);
+    margin: 1.5rem 0;
+}
+
+/* Empty State */
+.empty-state {
+    text-align: center;
+    color: var(--text-body-panel);
+    padding: 2rem;
+    font-style: italic;
+}
+
+/* Responsive */
+@media (max-width: 768px) {
+    .admin-container {
+        grid-template-columns: 1fr;
+    }
+
+    .admin-sidebar {
+        display: none;
+        position: fixed;
+        left: 0;
+        top: 0;
+        width: 280px;
+        height: 100vh;
+        z-index: 999;
+    }
+
+    .content-header {
+        flex-direction: column;
+        align-items: flex-start;
+    }
+
+    .stats-grid {
+        grid-template-columns: 1fr;
+    }
+
+    .form-row {
+        grid-template-columns: 1fr;
+    }
+
+    .project-actions,
+    .contact-actions {
+        flex-wrap: wrap;
+    }
+}

@@ -1,26 +1,13 @@
-/**
- * 🚀 WEEK 5: THE MATRIX OF JAVASCRIPT!
- *
- * HTML is the skeleton. CSS is the skin and clothes.
- * JavaScript is the BRAIN. It makes the web page alive!
- */
-
 console.log("=== SYSTEM BOOT INITIATED ===");
 
-// ==========================================
-// TASK 7: Variables & Data Types
-// ==========================================
-const studentName  = "Muhtad Haseeb Mustapha";           // 👈 Replace with your real name
-const studentTitle = "Backend Developer"; // 👈 Replace with your dream job
+const studentName  = "Muhtad Haseeb Mustapha";
+const studentTitle = "Backend Developer";
 
 console.log("Name loaded:", studentName);
 console.log("Title loaded:", studentTitle);
 
 
-// ==========================================
-// TASK 8: Arrays (Lists of information)
-// ==========================================
-// Add or remove skills — they appear as glowing tags on the page automatically!
+// Add or remove skills — they appear as glowing tags on the page automatically
 const mySkills = [
     "Python",
     "FastAPI",
@@ -32,33 +19,16 @@ const mySkills = [
 console.log("Skills array loaded. Total skills:", mySkills.length);
 
 
-// ==========================================
-// TASK 9: Objects (Complex data structures)
-// ==========================================
 const hackerProfile = {
-    alias: "DevCore",           // 👈 Your nickname / handle
-    level: "3rd Year",                   // 👈 Your academic year or age
+    alias: "DevCore",
+    level: "3rd Year",
     isActive: true
 };
 
 console.log("Profile object:", hackerProfile);
 
 
-// ==========================================
-// TASK 10: Accessing Object Properties (Bug Fix)
-// ==========================================
-// Fixed: using dot notation to access the 'alias' property
 console.log("Incoming connection from: " + hackerProfile.alias);
-
-
-// ==========================================
-// TASK 11: Accessing Array Elements
-// ==========================================
-// We want to access the 2nd skill from your 'mySkills' array and log it.
-// Remember, arrays are ZERO-indexed (the first element is at index 0).
-// Write a console.log statement extracting and printing the 2nd element of 'mySkills'.
-//
-// YOUR CODE HERE:
 console.log("Second skill in my array: " + mySkills[1]);
 
 
@@ -96,19 +66,8 @@ document.addEventListener('DOMContentLoaded', () => {
         }
         updateThemeButtonText();
 
-        // Inject Name and Title into the hero section
-        if (typeof studentName !== 'undefined') {
-            document.getElementById('hero-name').innerText = studentName;
-        }
-        if (typeof studentTitle !== 'undefined') {
-            document.getElementById('hero-title').innerText = studentTitle;
-        }
-
-        // Also update the footer name to match
-        const footerName = document.getElementById('footer-name');
-        if (footerName && typeof studentName !== 'undefined') {
-            footerName.innerText = studentName;
-        }
+        // Name, title, and footer are rendered server-side by PHP (index.php $config).
+        // To update them, edit the $config array at the top of index.php.
 
         // Inject Skills Array dynamically as glowing tags
         if (typeof mySkills !== 'undefined' && Array.isArray(mySkills)) {
@@ -123,14 +82,77 @@ document.addEventListener('DOMContentLoaded', () => {
             });
         }
 
+        // Load projects from the database via AJAX
+        loadProjects();
+
     } catch (error) {
         console.warn("System Initialization Incomplete: Finish your JS tasks to unlock full portfolio features!", error);
     }
 });
 
 
+// Load projects from the database via AJAX
+function loadProjects() {
+    const container = document.getElementById('projects-container');
+    if (!container) return;
+
+    fetch('get_projects.php')
+        .then(res => res.json())
+        .then(projects => {
+            if (!projects.length) {
+                container.innerHTML = '<p style="color:var(--text-body-panel)">No projects found.</p>';
+                return;
+            }
+
+            container.innerHTML = '';
+            projects.forEach(p => {
+                const statusClass = p.status === 'live' ? 'status-live' : p.status === 'wip' ? 'status-wip' : 'status-planned';
+                const statusLabel = p.status === 'live' ? '● Live' : p.status === 'wip' ? '● In Progress' : '● Planned';
+
+                // Build card with DOM methods (avoids XSS from unsanitized DB content)
+                const card = document.createElement('div');
+                card.className = 'project-card';
+
+                const header = document.createElement('div');
+                header.className = 'project-header';
+
+                const status = document.createElement('span');
+                status.className = 'project-status ' + statusClass;
+                status.textContent = statusLabel;
+
+                const lang = document.createElement('span');
+                lang.className = 'project-lang';
+                lang.textContent = p.language;
+
+                header.appendChild(status);
+                header.appendChild(lang);
+
+                const title = document.createElement('h3');
+                title.textContent = p.title;
+
+                const desc = document.createElement('p');
+                desc.textContent = p.description;
+
+                const link = document.createElement('a');
+                // Only allow http/https URLs — blocks javascript: and data: injection
+                link.href = /^https?:\/\//i.test(p.link) ? p.link : '#';
+                link.className = 'project-link';
+                link.textContent = 'View Project →';
+
+                card.appendChild(header);
+                card.appendChild(title);
+                card.appendChild(desc);
+                card.appendChild(link);
+                container.appendChild(card);
+            });
+        })
+        .catch(() => {
+            container.innerHTML = '<p style="color:#ff6b6b">Failed to load projects.</p>';
+        });
+}
+
 /**
- * Contact form handler — gives user feedback without page reload.
+ * Contact form handler — validates, then sends via AJAX to contact.php
  */
 function handleFormSubmit(event) {
     event.preventDefault();
@@ -138,17 +160,36 @@ function handleFormSubmit(event) {
     const name     = document.getElementById('fname').value.trim();
     const email    = document.getElementById('femail').value.trim();
     const reason   = document.getElementById('reason').value;
+    const message  = document.getElementById('fmessage').value.trim();
     const feedback = document.getElementById('form-feedback');
 
-    if (!name || !email) {
+    // Client-side validation
+    if (!name || !email || !message) {
         feedback.style.color = '#ff6b6b';
-        feedback.innerText = '⚠ Please fill in your name and email.';
+        feedback.innerText = '⚠ Please fill in your name, email, and message.';
         return;
     }
 
-    feedback.style.color = 'var(--accent)';
-    feedback.innerText = `✔ Message received, ${name}! I'll get back to you soon.`;
-    document.getElementById('contactForm').reset();
+    const formData = new FormData();
+    formData.append('name',    name);
+    formData.append('email',   email);
+    formData.append('reason',  reason);
+    formData.append('message', message);
 
-    console.log("New contact form submission:", { name, email, reason });
+    fetch('contact.php', { method: 'POST', body: formData })
+        .then(res => res.json())
+        .then(data => {
+            if (data.success) {
+                feedback.style.color = 'var(--accent)';
+                feedback.innerText = `✔ Message received, ${name}! I'll get back to you soon.`;
+                document.getElementById('contactForm').reset();
+            } else {
+                feedback.style.color = '#ff6b6b';
+                feedback.innerText = '⚠ ' + (data.error || 'Something went wrong.');
+            }
+        })
+        .catch(() => {
+            feedback.style.color = '#ff6b6b';
+            feedback.innerText = '⚠ Could not send message. Please try again.';
+        });
 }
