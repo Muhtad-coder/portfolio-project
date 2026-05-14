@@ -1,5 +1,6 @@
 <?php
 session_start();
+date_default_timezone_set('Europe/Istanbul');
 
 // Check if admin is logged in
 if (!isset($_SESSION['admin_id'])) {
@@ -8,7 +9,7 @@ if (!isset($_SESSION['admin_id'])) {
 }
 
 // Session timeout: 30 minutes of inactivity
-$timeout = 1800; // 30 minutes
+$timeout = 1800; 
 if (isset($_SESSION['login_time']) && time() - $_SESSION['login_time'] > $timeout) {
     session_destroy();
     header('Location: admin_login.php?timeout=1');
