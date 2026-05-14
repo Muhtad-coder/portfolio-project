@@ -1,17 +1,14 @@
 <?php
-// ============================================================
-//  PORTFOLIO CONFIG — fill in your details here
-// ============================================================
 
 $config = [
 
     // --- Identity ---
-    'name'       => 'Muhtad Haseeb Mustapha',   // Your full name
-    'title'      => 'Backend Developer',         // Your role / dream job
-    'bio'        => 'Welcome to my digital space. Check the console to see my system boot up logs!',
+    'name'       => 'Muhtad Haseeb Mustapha',  
+    'title'      => 'Backend Developer',        
+    'bio'        => 'Welcome to my digital space - where technology, creativity, and problem-solving come together to build meaningful experiences.',
 
     // --- Profile image ---
-    // Save your photo as profile.png in this folder, or change the path below.
+   
     'avatar'     => 'profile.png',
 
     // --- Social / contact links ---
@@ -116,7 +113,7 @@ $config = [
         <section id="skills" class="glass-panel">
             <h2>Neural Network (Skills)</h2>
             <div id="skills-container" class="skills-grid">
-                <!-- Injected automatically by script.js from your mySkills array -->
+                <!-- Injected automatically by script.js from my mySkills array -->
             </div>
         </section>
 

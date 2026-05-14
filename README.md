@@ -5,7 +5,7 @@
 
 ## Project Overview
 
-This is a personal portfolio website built from scratch for the Internet & Web Programming course. It serves as a live showcase of my projects, skills, and background, with a fully functional admin panel to manage content dynamically — no manual code edits required to add or update projects.
+This is a personal portfolio website built for my lab work for  the Internet & Web Programming course. It serves as a live showcase of my projects, skills, and background, with a fully functional admin panel to manage content dynamically — no manual code edits required to add or update projects.
 
 The site is deployed and accessible at:
 **https://muhtad-portfolio.infinityfreeapp.com**
@@ -14,14 +14,13 @@ The site is deployed and accessible at:
 
 ## Technologies Used
 
-| Layer | Technology |
-|---|---|
+| Layer  and  Technology used |
 | Structure | PHP 8 |
-| Styling | CSS3 (custom, no frameworks) |
-| Interactivity | Vanilla JavaScript (ES6+) |
+| Styling | CSS3 |
+| Interactivity |  JavaScript 
 | Backend | PHP with MySQLi |
 | Database | MySQL |
-| Local Development | MAMP (Apache + PHP + MySQL) |
+| Local Development | MAMP (Apache + PHP + MySQL) 
 | Production Hosting | InfinityFree |
 
 No external CSS frameworks (e.g. Bootstrap) or JavaScript libraries were used — everything was written by hand.

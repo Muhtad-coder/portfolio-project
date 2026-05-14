@@ -7,7 +7,6 @@ console.log("Name loaded:", studentName);
 console.log("Title loaded:", studentTitle);
 
 
-// Add or remove skills — they appear as glowing tags on the page automatically
 const mySkills = [
     "Python",
     "FastAPI",
@@ -35,11 +34,6 @@ console.log("Second skill in my array: " + mySkills[1]);
 console.log("=== SYSTEM BOOT COMPLETE ===");
 
 
-/**
- * ⚠️ INSTRUCTOR'S CORE SYSTEM FUNCTION — DO NOT MODIFY
- *
- * Uses your variables above to inject data into the HTML automatically.
- */
 document.addEventListener('DOMContentLoaded', () => {
     try {
         // Theme mode toggle with persistence
@@ -66,10 +60,7 @@ document.addEventListener('DOMContentLoaded', () => {
         }
         updateThemeButtonText();
 
-        // Name, title, and footer are rendered server-side by PHP (index.php $config).
-        // To update them, edit the $config array at the top of index.php.
-
-        // Inject Skills Array dynamically as glowing tags
+ 
         if (typeof mySkills !== 'undefined' && Array.isArray(mySkills)) {
             const skillsContainer = document.getElementById('skills-container');
             mySkills.forEach((skill, index) => {

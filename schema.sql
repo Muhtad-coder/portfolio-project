@@ -42,6 +42,8 @@ CREATE TABLE IF NOT EXISTS admin_users (
 );
 
 
+-- SEED DATA: Sample Projects
+
 INSERT INTO projects (title, description, language, status, link) VALUES
 (
     'Personal Portfolio',
@@ -66,8 +68,5 @@ INSERT INTO projects (title, description, language, status, link) VALUES
 );
 
 
-
 INSERT INTO admin_users (username, password_hash) VALUES
-('admin', '$2y$10$JVQRbd7NFMGad3ZraG84a.0oLKRo9eLZMfUVKdb6yB0goWQJgznJG');
-
-
+('admin', '$2y$10$REPLACEME_RUN_THE_COMMAND_ABOVE_AND_PASTE_YOUR_BCRYPT_HASH_HERE_DO_NOT_USE_DEFAULT_PASSWORD......');

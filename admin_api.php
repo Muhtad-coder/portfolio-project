@@ -15,9 +15,9 @@ header('Content-Type: application/json');
 $action = $_REQUEST['action'] ?? '';
 $conn = get_db();
 
-// ============================================================
+
 // GET PROJECT (for editing)
-// ============================================================
+
 if ($_SERVER['REQUEST_METHOD'] === 'GET' && $action === 'get') {
     $id = intval($_GET['id'] ?? 0);
     
@@ -47,9 +47,9 @@ if ($_SERVER['REQUEST_METHOD'] === 'GET' && $action === 'get') {
     exit;
 }
 
-// ============================================================
+
 // POST REQUESTS (Create, Update, Delete, etc.)
-// ============================================================
+
 if ($_SERVER['REQUEST_METHOD'] !== 'POST') {
     http_response_code(405);
     echo json_encode(['success' => false, 'error' => 'Method not allowed']);
